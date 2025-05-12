@@ -104,25 +104,13 @@ The project is temporarily named **Atlas** — a symbolic name suggesting a plat
 
 ## 🔷 Development Milestones
 
-| Milestone | ETA | Owner |
-|----------|-----|-------|
-| Audit ERPNext Tasks & Timesheets | Week 1 | You |
-| Build Timer MVP | Week 2 | You |
-| Create Workload Report View | Week 3 | You + Frontend |
-| Migrate 1 Team from ClickUp to Atlas | Week 4 | You + PM |
-| Refine Features + Document Usage | Week 5–6 | You |
-
----
-
-## 🔷 Business Analysis Process
-
-| Area | Practice |
-|------|---------|
-| Feature Discovery | Reverse-engineer ClickUp usage + Interview team |
-| Functional Requirements | User stories + feature comparison like above |
-| Technical Feasibility | Start from ERPNext base and assess gaps |
-| Continuous Feedback | Weekly demos with PM/Boss |
-| Living Documentation | Update this doc weekly with progress and new ideas |
+| Milestone | ETA |
+|----------|-----|
+| Audit ERPNext Tasks & Timesheets | Week 1 |
+| Build Timer MVP | Week 2 |
+| Create Workload Report View | Week 3 |
+| Migrate 1 Team from ClickUp to Atlas | Week 4 |
+| Refine Features + Document Usage | Week 5–6 |
 
 ---
 
