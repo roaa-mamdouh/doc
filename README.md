@@ -36,7 +36,6 @@ The project is temporarily named **Atlas** — a symbolic name suggesting a plat
 | 🧩 Build Core Project Features | Implement task, time tracking, and workload management features natively in Frappe |
 | 🔁 Reduce ClickUp Dependence | Gradually shift operations from ClickUp to Frappe as features stabilize |
 | 🧠 Encourage Internal Use | Promote the use of Raven, Gameplan, and Drive to learn what works and how to integrate them |
-| 📚 Improve Business Documentation | Use this project as a model for proper Business Analysis and Documentation workflows |
 
 ---
 
