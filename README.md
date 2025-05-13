@@ -48,7 +48,7 @@ The project is temporarily named **Atlas** — a symbolic name suggesting a plat
 | **Kanban & Board Views** | Drag-and-drop board views (To Do, In Progress, Done, etc.) | Kanban Board view for any DocType. You can create a Kanban on the Task doctype so tasks appear as cards in status columns and can be moved by drag/drop. | Built-in and configurable via Kanban Board (no code needed). |
 | **Gantt / Timeline** | Interactive Gantt charts for project timelines. | ERPNext has Gantt charts for Projects (timeline, dependencies). Use Frappe Gantt library if needed. | Available in Projects module. |
 | **Time Tracking** | Built-in timers on tasks (manual or auto), dashboards of hours. | ERPNext Timesheet with timer. Users log time per task/project in the Timesheet. Activity Types and Costs can be defined. Time logs feed into HR/payroll/billing if needed. | Time tracking is fully supported. The Timesheet UI even has a Start Timer dialog for tasks. |
-| **Workload / Capacity** | Workload View: visual capacity planning per user (by hours, tasks, or points). | No direct equivalent. ERPNext does not ship a user-capacity workload chart out-of-the-box. The Planner app offers a simple task-assignment schedule. You can build custom reports or use Frappe Charts to visualize hours-per-employee. | **Gap:** Will require customization (or use Planner as a starting point). |
+| **Workload / Capacity** | Workload View: visual capacity planning per user (by hours, tasks, or points). | No direct equivalent. ERPNext does not ship a user-capacity workload chart out-of-the-box. The Planner (Prototype) app offers a simple task-assignment schedule. You can build custom reports or use Frappe Charts to visualize hours-per-employee. | **Gap:** Will require customization (or use Planner as a starting point). |
 | **Recurring Tasks** | Repeatable tasks (daily/weekly/monthly). | ERPNext tasks do not support recurrence natively. A custom script or doctype (e.g. use ToDo or Scheduler actions) would be needed. | Not built-in; mark for custom development. |
 | **Reminders / Notifications** | Automatic reminders, email/push alerts. | ERPNext has Notifications and Event Reminders (Emails on task deadlines, etc). Raven can send chat notifications or messages when tasks change. | Covered by ERPNext alerts and Raven integrations. |
 | **Chat & Collaboration** | In-app chat/comments, Slack/Teams integrations. | Use Raven for team chat (built on Frappe). Raven channels can link to Projects or Tasks, sending notifications on events. ERPNext also has Comments on records. No built-in Slack, but external bots or webhooks could be added. | Chat is provided by Raven (optional); ERPNext itself has comment threads. |
@@ -73,7 +73,7 @@ The project is temporarily named **Atlas** — a symbolic name suggesting a plat
 
 | Feature | Action |
 |--------|--------|
-| Workload View | Custom page showing user-wise task loads for a week |
+| Workload View (Planner Prototype) | Custom page showing user-wise task loads for a week |
 | Activity Logs | Add full logs per task/project: comments, time logs, changes |
 | Notifications | Custom notification framework: due date alerts, mentions |
 | Dashboards | Custom dashboards for PMs: ongoing tasks, workloads, time logs |
@@ -83,7 +83,7 @@ The project is temporarily named **Atlas** — a symbolic name suggesting a plat
 | Feature | Action |
 |--------|--------|
 | Automations | Rule-based workflows for task status changes, reminders |
-| Goals / OKRs | Track outcomes tied to projects/tasks |
+| Goals | Track outcomes tied to projects/tasks |
 | AI Suggestions | (Optional) Suggest task reassignments, reminders based on load |
 
 ---
@@ -98,28 +98,3 @@ The project is temporarily named **Atlas** — a symbolic name suggesting a plat
   - Project Dashboard
 - Use Raven for async updates, activity feeds
 - Use Frappe Drive / Wiki for internal docs
-
----
-
-## 🔷 Development Milestones
-
-| Milestone | ETA |
-|----------|-----|
-| Audit ERPNext Tasks & Timesheets | Week 1 |
-| Build Timer MVP | Week 2 |
-| Create Workload Report View | Week 3 |
-| Migrate 1 Team from ClickUp to Atlas | Week 4 |
-| Refine Features + Document Usage | Week 5–6 |
-
----
-
-## 🔷 How You’ll Know If Core Features Exist Already
-
-1. **Search ERPNext Docs & GitHub:**  
-   - Look up “Tasks,” “Projects,” “Time Logs” in [ERPNext Docs](https://docs.erpnext.com/)  
-2. **Use Bench Console:**  
-   - Run: `frappe.get_meta("Task").fields` to inspect doctypes  
-4. **Explore the UI Yourself:**  
-   - Use Raven, Gameplan, Projects, etc. in real life  
-5. **Trace Functionality in Code:**  
-   - Trace from UI > JS > Python Controller > Doctype  
