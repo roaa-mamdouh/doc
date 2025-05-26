@@ -98,3 +98,139 @@ The project is temporarily named **Atlas** — a symbolic name suggesting a plat
   - Project Dashboard
 - Use Raven for async updates, activity feeds
 - Use Frappe Drive / Wiki for internal docs
+
+
+
+
+
+# Atlas Task Management System - Project Plan
+
+Framework: Frappe UI
+
+### Database Design
+
+#### Core Atlas Task Schema
+
+```sql
+atlas_task
+├── Basic Information
+│   ├── name (Primary Key)
+│   ├── title
+│   ├── description
+│   ├── priority (High/Medium/Low)
+│   └── status (Open/In Progress/Review/Pending Mina/Completed/Cancelled)
+├── Assignment & Ownership
+│   ├── assigned_to (Link to Employee)
+│   ├── assigned_by (Link to Employee)
+│   ├── project (Link to Project)
+│   └── department (Link to Department)
+├── Timeline Management
+│   ├── expected_start_date
+│   ├── expected_end_date
+│   ├── actual_start_date
+│   ├── actual_end_date
+│   └── estimated_hours
+├── Progress Tracking
+│   ├── progress_percentage
+│   ├── actual_hours
+│   ├── remaining_hours
+│   └── completion_date
+└── Additional Features
+    ├── tags (Table MultiSelect)
+    ├── dependencies (Table - Link to other Atlas Tasks)
+    ├── attachments (Attach)
+    └── custom_fields (Extensible)
+```
+
+## Phase-by-Phase Development Plan
+
+### Phase 1: Foundation & Core Setup (Week 1)
+
+**Week 1: Environment Setup & Analysis, Task DocType Development**
+
+**Deliverables:**
+- Requirements gathering and documentation
+- Team Input Collection: Conduct ClickUp feature audit with current users (must-have vs nice-to-have)
+- Core doctype creation:
+  - Field definitions and validations (matching ClickUp data structure)
+  - Basic form layout design with modern UI components
+  - List view configuration with filtering and sorting capabilities
+
+**Success Criteria:**
+- Atlas Task doctype created with all essential fields
+- Basic CRUD operations functional
+- Development environment fully operational
+
+### Phase 2: Workload Visualization Module (Weeks 2-3)
+
+**Status:** In Progress (80% Complete)
+
+**Week 2: Dashboard Foundation & Core Visualization**
+
+**Deliverables:**
+- Complete current workload view implementation
+- Bug fixes and performance optimization for existing 80% complete module
+- User testing and feedback integration (Mina's Feedback)
+
+**Success Criteria:**
+- Workload visualization fully functional and tested
+- Real-time updates working across multiple users
+
+**Week 3: Mobile Responsiveness & Integration**
+
+**Deliverables:**
+
+*Days 1-3: Mobile interface optimization*
+- Responsive design for dashboard and workload views
+- Push notifications for task updates and mentions
+
+*Days 4-5: ERPNext Module Integration*
+- Timesheet integration (automatic time tracking from tasks)
+
+### Phase 3: Advanced Features & ClickUp Parity (Weeks 4-5)
+
+**Week 4: Workflow Engine & Collaboration**
+
+**Deliverables:**
+
+*Days 1-3: Custom workflow development*
+- State transition logic (Open → In Progress → Review → Pending Mina → Completed)
+- Automated notifications (assignment, due dates, mentions)
+
+*Days 4-5: Collaboration Features* #needs to be reviewed
+- Comments system with rich text and file attachments
+- @mentions functionality with notifications
+- Task watchers system (subscribe to task updates)
+- Activity timeline (audit trail of all task changes)
+
+**Week 5: Reporting & Analytics Dashboard**
+
+**Deliverables:**
+
+*Days 1-3: Custom reports development*
+- Task completion reports (team and individual performance)
+- Team productivity analytics (velocity, burndown charts)
+
+*Days 4-5: Dashboard widgets & KPIs*
+- Real-time metrics dashboard (tasks completed, overdue, in progress)
+- Customizable dashboard layouts (user-specific views)
+- Executive summary widgets (high-level project health)
+
+### Phase 4: API Development & Raven Integration (Week 6)
+
+### Phase 5: Testing & Quality Assurance (Week 7)
+
+**Week 7: Comprehensive Testing**
+
+**Deliverables:**
+
+*Days 1-2: Automated testing suite*
+- Unit testing (server-side logic, frontend components)
+- Integration testing (cross-module functionality)
+- API endpoint testing (performance and reliability)
+
+*Days 3-5: User Acceptance Testing*
+- Stakeholder testing sessions with ClickUp power users
+- Feature validation against ClickUp functionality checklist
+- Performance benchmarking vs ClickUp response times
+- Security testing and vulnerability assessment
