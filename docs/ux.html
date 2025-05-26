@@ -1,0 +1,668 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Atlas UX Diagrams & Visual Models</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%);
+            color: #f8fafc;
+            overflow-x: auto;
+        }
+        
+        .container {
+            max-width: 100%;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+        
+        .header {
+            text-align: center;
+            margin-bottom: 3rem;
+            padding: 2rem;
+            background: rgba(15, 23, 42, 0.8);
+            border-radius: 20px;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(148, 163, 184, 0.1);
+        }
+        
+        .header h1 {
+            font-size: 3rem;
+            font-weight: 800;
+            background: linear-gradient(135deg, #3b82f6, #8b5cf6);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 1rem;
+        }
+        
+        .header p {
+            font-size: 1.2rem;
+            color: #94a3b8;
+        }
+        
+        .diagram-section {
+            margin-bottom: 4rem;
+            background: rgba(30, 41, 59, 0.6);
+            border-radius: 20px;
+            padding: 2rem;
+            border: 1px solid rgba(148, 163, 184, 0.1);
+            backdrop-filter: blur(10px);
+        }
+        
+        .section-title {
+            font-size: 2rem;
+            font-weight: 700;
+            margin-bottom: 2rem;
+            color: #f1f5f9;
+            text-align: center;
+            padding-bottom: 1rem;
+            border-bottom: 2px solid rgba(59, 130, 246, 0.3);
+        }
+        
+        .diagram {
+            background: rgba(15, 23, 42, 0.8);
+            border-radius: 15px;
+            padding: 2rem;
+            margin: 2rem 0;
+            border: 1px solid rgba(148, 163, 184, 0.1);
+            min-height: 400px;
+            position: relative;
+            overflow: auto;
+        }
+        
+        .user-journey {
+            display: flex;
+            flex-direction: column;
+            gap: 2rem;
+        }
+        
+        .journey-step {
+            display: flex;
+            align-items: center;
+            gap: 2rem;
+            padding: 1.5rem;
+            background: rgba(59, 130, 246, 0.1);
+            border-radius: 12px;
+            border-left: 4px solid #3b82f6;
+            transition: all 0.3s ease;
+        }
+        
+        .journey-step:hover {
+            background: rgba(59, 130, 246, 0.2);
+            transform: translateX(10px);
+        }
+        
+        .step-number {
+            width: 40px;
+            height: 40px;
+            background: linear-gradient(135deg, #3b82f6, #1d4ed8);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            color: white;
+            flex-shrink: 0;
+        }
+        
+        .step-content {
+            flex: 1;
+        }
+        
+        .step-title {
+            font-weight: 600;
+            font-size: 1.1rem;
+            margin-bottom: 0.5rem;
+            color: #f1f5f9;
+        }
+        
+        .step-description {
+            color: #94a3b8;
+            line-height: 1.5;
+        }
+        
+        .architecture-diagram {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin: 2rem 0;
+        }
+        
+        .arch-component {
+            background: rgba(59, 130, 246, 0.1);
+            border: 2px solid #3b82f6;
+            border-radius: 12px;
+            padding: 1.5rem;
+            text-align: center;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+        
+        .arch-component:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 40px rgba(59, 130, 246, 0.3);
+        }
+        
+        .arch-title {
+            font-weight: 600;
+            font-size: 1.1rem;
+            margin-bottom: 1rem;
+            color: #3b82f6;
+        }
+        
+        .arch-features {
+            list-style: none;
+            text-align: left;
+        }
+        
+        .arch-features li {
+            padding: 0.3rem 0;
+            color: #cbd5e1;
+            font-size: 0.9rem;
+        }
+        
+        .arch-features li:before {
+            content: "→ ";
+            color: #3b82f6;
+            font-weight: bold;
+        }
+        
+        .workflow-diagram {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+            align-items: center;
+        }
+        
+        .workflow-step {
+            background: rgba(139, 92, 246, 0.1);
+            border: 2px solid #8b5cf6;
+            border-radius: 12px;
+            padding: 1rem 2rem;
+            text-align: center;
+            min-width: 200px;
+            position: relative;
+        }
+        
+        .workflow-step:after {
+            content: "↓";
+            position: absolute;
+            bottom: -25px;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 1.5rem;
+            color: #8b5cf6;
+        }
+        
+        .workflow-step:last-child:after {
+            display: none;
+        }
+        
+        .status-flow {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 1rem;
+            margin: 2rem 0;
+        }
+        
+        .status-box {
+            background: rgba(34, 197, 94, 0.1);
+            border: 2px solid #22c55e;
+            border-radius: 8px;
+            padding: 0.8rem 1.2rem;
+            font-weight: 500;
+            color: #22c55e;
+            position: relative;
+        }
+        
+        .status-box.in-progress {
+            background: rgba(251, 146, 60, 0.1);
+            border-color: #fb923c;
+            color: #fb923c;
+        }
+        
+        .status-box.review {
+            background: rgba(59, 130, 246, 0.1);
+            border-color: #3b82f6;
+            color: #3b82f6;
+        }
+        
+        .status-box.pending {
+            background: rgba(239, 68, 68, 0.1);
+            border-color: #ef4444;
+            color: #ef4444;
+        }
+        
+        .status-box:not(:last-child):after {
+            content: "→";
+            position: absolute;
+            right: -15px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #64748b;
+            font-weight: bold;
+        }
+        
+        .feature-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin: 2rem 0;
+        }
+        
+        .feature-card {
+            background: rgba(30, 41, 59, 0.8);
+            border-radius: 15px;
+            padding: 2rem;
+            border: 1px solid rgba(148, 163, 184, 0.2);
+            transition: all 0.3s ease;
+        }
+        
+        .feature-card:hover {
+            transform: translateY(-5px);
+            border-color: #3b82f6;
+            box-shadow: 0 20px 40px rgba(59, 130, 246, 0.2);
+        }
+        
+        .feature-icon {
+            width: 50px;
+            height: 50px;
+            background: linear-gradient(135deg, #3b82f6, #8b5cf6);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 1rem;
+            font-size: 1.5rem;
+        }
+        
+        .feature-title {
+            font-size: 1.3rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+            color: #f1f5f9;
+        }
+        
+        .feature-description {
+            color: #94a3b8;
+            line-height: 1.6;
+        }
+        
+        .database-schema {
+            background: rgba(15, 23, 42, 0.9);
+            border-radius: 12px;
+            padding: 2rem;
+            font-family: 'Monaco', 'Consolas', monospace;
+            color: #94a3b8;
+            overflow-x: auto;
+        }
+        
+        .schema-table {
+            margin-bottom: 2rem;
+        }
+        
+        .schema-title {
+            color: #3b82f6;
+            font-weight: bold;
+            font-size: 1.2rem;
+            margin-bottom: 1rem;
+        }
+        
+        .field-group {
+            margin-left: 1rem;
+            margin-bottom: 1rem;
+        }
+        
+        .field-group-title {
+            color: #8b5cf6;
+            font-weight: bold;
+            margin-bottom: 0.5rem;
+        }
+        
+        .field-item {
+            margin-left: 1rem;
+            color: #cbd5e1;
+            padding: 0.2rem 0;
+        }
+        
+        .phase-timeline {
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+        }
+        
+        .phase-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 2rem;
+            padding: 1.5rem;
+            background: rgba(59, 130, 246, 0.05);
+            border-radius: 12px;
+            border-left: 4px solid #3b82f6;
+        }
+        
+        .phase-number {
+            width: 50px;
+            height: 50px;
+            background: linear-gradient(135deg, #3b82f6, #1d4ed8);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            color: white;
+            flex-shrink: 0;
+        }
+        
+        .phase-content {
+            flex: 1;
+        }
+        
+        .phase-title {
+            font-size: 1.3rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+            color: #f1f5f9;
+        }
+        
+        .phase-duration {
+            color: #3b82f6;
+            font-weight: 500;
+            margin-bottom: 1rem;
+        }
+        
+        .phase-deliverables {
+            color: #94a3b8;
+            line-height: 1.6;
+        }
+        
+        @media (max-width: 768px) {
+            .container {
+                padding: 1rem;
+            }
+            
+            .header h1 {
+                font-size: 2rem;
+            }
+            
+            .journey-step {
+                flex-direction: column;
+                text-align: center;
+            }
+            
+            .status-flow {
+                flex-direction: column;
+            }
+            
+            .status-box:after {
+                content: "↓";
+                right: 50%;
+                bottom: -15px;
+                top: auto;
+                transform: translateX(50%);
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>Atlas UX Design System</h1>
+            <p>Comprehensive Visual Models & User Experience Diagrams for ClickUp Alternative</p>
+        </div>
+
+        <!-- User Journey Flow -->
+        <div class="diagram-section">
+            <h2 class="section-title">User Journey & Workflow</h2>
+            <div class="diagram">
+                <div class="user-journey">
+                    <div class="journey-step">
+                        <div class="step-number">1</div>
+                        <div class="step-content">
+                            <div class="step-title">Task Creation & Assignment</div>
+                            <div class="step-description">User creates task with title, description, priority, assignee, and due date. System validates required fields and sets default status to "Open".</div>
+                        </div>
+                    </div>
+                    <div class="journey-step">
+                        <div class="step-number">2</div>
+                        <div class="step-content">
+                            <div class="step-title">Workload Visualization</div>
+                            <div class="step-description">Dashboard displays user capacity planning with visual workload charts showing task distribution across team members.</div>
+                        </div>
+                    </div>
+                    <div class="journey-step">
+                        <div class="step-number">3</div>
+                        <div class="step-content">
+                            <div class="step-title">Time Tracking Integration</div>
+                            <div class="step-description">Users start/stop timers on tasks. System automatically logs time to Timesheet module with real-time updates.</div>
+                        </div>
+                    </div>
+                    <div class="journey-step">
+                        <div class="step-number">4</div>
+                        <div class="step-content">
+                            <div class="step-title">Status Progression & Notifications</div>
+                            <div class="step-description">Tasks move through workflow states with automated notifications for assignments, due dates, and @mentions via Raven integration.</div>
+                        </div>
+                    </div>
+                    <div class="journey-step">
+                        <div class="step-number">5</div>
+                        <div class="step-content">
+                            <div class="step-title">Reporting & Analytics</div>
+                            <div class="step-description">Real-time dashboard with completion metrics, team productivity analytics, and customizable KPI widgets.</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Task Status Workflow -->
+        <div class="diagram-section">
+            <h2 class="section-title">Task Status Workflow</h2>
+            <div class="diagram">
+                <div class="status-flow">
+                    <div class="status-box">Open</div>
+                    <div class="status-box in-progress">In Progress</div>
+                    <div class="status-box review">Review</div>
+                    <div class="status-box pending">Pending Mina</div>
+                    <div class="status-box">Completed</div>
+                </div>
+                <div style="margin-top: 2rem; text-align: center; color: #94a3b8;">
+                    <p><strong>Workflow Rules:</strong> Automatic state transitions with validation, notification triggers on status changes, and role-based permissions for status updates.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- System Architecture -->
+        <div class="diagram-section">
+            <h2 class="section-title">System Architecture</h2>
+            <div class="diagram">
+                <div class="architecture-diagram">
+                    <div class="arch-component">
+                        <div class="arch-title">Core Atlas Task</div>
+                        <ul class="arch-features">
+                            <li>Custom DocType Extension</li>
+                            <li>CRUD Operations</li>
+                            <li>Field Validations</li>
+                            <li>Dependency Management</li>
+                        </ul>
+                    </div>
+                    <div class="arch-component">
+                        <div class="arch-title">Workload Module</div>
+                        <ul class="arch-features">
+                            <li>Capacity Planning Views</li>
+                            <li>Real-time Updates</li>
+                            <li>Team Load Balancing</li>
+                            <li>Visual Dashboards</li>
+                        </ul>
+                    </div>
+                    <div class="arch-component">
+                        <div class="arch-title">Time Tracking</div>
+                        <ul class="arch-features">
+                            <li>ERPNext Timesheet Integration</li>
+                            <li>Timer UI Components</li>
+                            <li>Automatic Time Logging</li>
+                            <li>Activity Type Support</li>
+                        </ul>
+                    </div>
+                    <div class="arch-component">
+                        <div class="arch-title">Raven Integration</div>
+                        <ul class="arch-features">
+                            <li>Chat Notifications</li>
+                            <li>@Mentions System</li>
+                            <li>Activity Feeds</li>
+                            <li>Team Collaboration</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Database Schema -->
+        <div class="diagram-section">
+            <h2 class="section-title">Database Schema Design</h2>
+            <div class="diagram">
+                <div class="database-schema">
+                    <div class="schema-table">
+                        <div class="schema-title">atlas_task</div>
+                        <div class="field-group">
+                            <div class="field-group-title">├── Basic Information</div>
+                            <div class="field-item">│   ├── name (Primary Key)</div>
+                            <div class="field-item">│   ├── title</div>
+                            <div class="field-item">│   ├── description</div>
+                            <div class="field-item">│   ├── priority (High/Medium/Low)</div>
+                            <div class="field-item">│   └── status (Open/In Progress/Review/Pending Mina/Completed/Cancelled)</div>
+                        </div>
+                        <div class="field-group">
+                            <div class="field-group-title">├── Assignment & Ownership</div>
+                            <div class="field-item">│   ├── assigned_to (Link to Employee)</div>
+                            <div class="field-item">│   ├── assigned_by (Link to Employee)</div>
+                            <div class="field-item">│   ├── project (Link to Project)</div>
+                            <div class="field-item">│   └── department (Link to Department)</div>
+                        </div>
+                        <div class="field-group">
+                            <div class="field-group-title">├── Timeline Management</div>
+                            <div class="field-item">│   ├── expected_start_date</div>
+                            <div class="field-item">│   ├── expected_end_date</div>
+                            <div class="field-item">│   ├── actual_start_date</div>
+                            <div class="field-item">│   ├── actual_end_date</div>
+                            <div class="field-item">│   └── estimated_hours</div>
+                        </div>
+                        <div class="field-group">
+                            <div class="field-group-title">├── Progress Tracking</div>
+                            <div class="field-item">│   ├── progress_percentage</div>
+                            <div class="field-item">│   ├── actual_hours</div>
+                            <div class="field-item">│   ├── remaining_hours</div>
+                            <div class="field-item">│   └── completion_date</div>
+                        </div>
+                        <div class="field-group">
+                            <div class="field-group-title">└── Additional Features</div>
+                            <div class="field-item">    ├── tags (Table MultiSelect)</div>
+                            <div class="field-item">    ├── dependencies (Table - Link to other Atlas Tasks)</div>
+                            <div class="field-item">    ├── attachments (Attach)</div>
+                            <div class="field-item">    └── custom_fields (Extensible)</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Key Features -->
+        <div class="diagram-section">
+            <h2 class="section-title">Core Feature Set</h2>
+            <div class="diagram">
+                <div class="feature-grid">
+                    <div class="feature-card">
+                        <div class="feature-icon">📋</div>
+                        <div class="feature-title">Task Management</div>
+                        <div class="feature-description">Rich task creation with title, description, assignee, due dates, priorities, and status tracking. Support for subtasks and dependencies with automatic alerts.</div>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-icon">📊</div>
+                        <div class="feature-title">Workload Visualization</div>
+                        <div class="feature-description">Visual capacity planning per user showing task loads, hours distribution, and team workload balancing with real-time updates.</div>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-icon">⏱️</div>
+                        <div class="feature-title">Time Tracking</div>
+                        <div class="feature-description">Built-in timer functionality with start/stop controls, automatic time logging to ERPNext Timesheet, and activity type categorization.</div>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-icon">🔔</div>
+                        <div class="feature-title">Notifications & Collaboration</div>
+                        <div class="feature-description">Automated notifications for assignments and due dates, @mentions system, Raven chat integration, and activity timeline tracking.</div>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-icon">📈</div>
+                        <div class="feature-title">Analytics Dashboard</div>
+                        <div class="feature-description">Real-time metrics dashboard with task completion rates, team productivity analytics, and customizable KPI widgets for project health monitoring.</div>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-icon">🔄</div>
+                        <div class="feature-title">Workflow Engine</div>
+                        <div class="feature-description">Custom state transitions with validation rules, automated workflow triggers, and role-based permissions for status management.</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Development Phases -->
+        <div class="diagram-section">
+            <h2 class="section-title">Development Timeline</h2>
+            <div class="diagram">
+                <div class="phase-timeline">
+                    <div class="phase-item">
+                        <div class="phase-number">1</div>
+                        <div class="phase-content">
+                            <div class="phase-title">Foundation & Core Setup</div>
+                            <div class="phase-duration">Week 1</div>
+                            <div class="phase-deliverables">Environment setup, requirements gathering, core Atlas Task doctype creation with field definitions, validations, and basic CRUD operations.</div>
+                        </div>
+                    </div>
+                    <div class="phase-item">
+                        <div class="phase-number">2</div>
+                        <div class="phase-content">
+                            <div class="phase-title">Workload Visualization Module</div>
+                            <div class="phase-duration">Weeks 2-3</div>
+                            <div class="phase-deliverables">Complete workload view implementation (80% complete), bug fixes, mobile responsiveness, and ERPNext timesheet integration.</div>
+                        </div>
+                    </div>
+                    <div class="phase-item">
+                        <div class="phase-number">3</div>
+                        <div class="phase-content">
+                            <div class="phase-title">Advanced Features & ClickUp Parity</div>
+                            <div class="phase-duration">Weeks 4-5</div>
+                            <div class="phase-deliverables">Custom workflow engine, collaboration features with comments and @mentions, reporting dashboard with analytics and KPIs.</div>
+                        </div>
+                    </div>
+                    <div class="phase-item">
+                        <div class="phase-number">4</div>
+                        <div class="phase-content">
+                            <div class="phase-title">API Development & Raven Integration</div>
+                            <div class="phase-duration">Week 6</div>
+                            <div class="phase-deliverables">REST API endpoints, Raven chat integration for notifications, activity feed implementation, and external integrations setup.</div>
+                        </div>
+                    </div>
+                    <div class="phase-item">
+                        <div class="phase-number">5</div>
+                        <div class="phase-content">
+                            <div class="phase-title">Testing & Quality Assurance</div>
+                            <div class="phase-duration">Week 7</div>
+                            <div class="phase-deliverables">Automated testing suite, user acceptance testing with stakeholders, performance benchmarking, and security assessment.</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
